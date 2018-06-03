@@ -7,9 +7,12 @@ public class Main
 
 	public static void main(String[] args)
 	{
-		getIPv4();
+		String msg_received = "5david-ofir-ytzhak-ana-anna-";
+		System.out.println(msg_received);
+		System.out.println(msg_received.substring(0, msg_received.length() - 1));
+		//		getIPv4();
 		//		new Server2().startServer();
-		getMsg();
+		//		getMsg();
 	}
 
 	public static void getIPv4()
