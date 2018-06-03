@@ -154,6 +154,7 @@ public class server
 	{
 		private final Socket clientSocket;
 		public String name;
+		boolean keepListening;
 
 		private ClientTask(Socket clientSocket)
 		{
@@ -168,7 +169,16 @@ public class server
 
 		private void disconnect()
 		{
-			users.add(this);
+			users.remove(this);
+			keepListening = false;
+			try
+			{
+				clientSocket.close();
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 			updateClientsUserList();
 		}
 
@@ -199,7 +209,7 @@ public class server
 
 		@Override public void run()
 		{
-			boolean keepListening = true;
+			keepListening = true;
 			String msg_received;
 			try
 			{
@@ -244,11 +254,8 @@ public class server
 						}
 						break;
 
-					case DISCONNECT://todo add disconnect everyone
-						users.remove(this);
-						clientSocket.close();
-						keepListening = false;
-						updateClientsUserList();
+					case DISCONNECT:
+						disconnect();
 						break;
 
 					case STILL_ALIVE:
