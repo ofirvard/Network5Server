@@ -32,12 +32,11 @@ public class server
 	private static final int NORMAL_MESSAGE = 1;
 	private static final int PRIVATE_MESSAGE = 2;
 	private static final int DISCONNECT = 3;
-	private static final int STILL_ALIVE = 4;
 	private static final int USER_LIST = 5;
 	private static final int ERROR = 6;
-	private Document doc;
+	private Document doc;//this is used to alter the text box
 	private int userCount = 0;
-	private ArrayList<ClientTask> users = new ArrayList<>();
+	private ArrayList<ClientTask> users = new ArrayList<>();// array of user threads
 	private ServerSocket serverSocket;
 
 	public server()
@@ -130,7 +129,7 @@ public class server
 			{
 				try
 				{
-					serverSocket = new ServerSocket(9153);
+					serverSocket = new ServerSocket(9154);
 					doc.insertString(doc.getLength(), "\nWaiting for clients to connect...", null);
 					while (true)
 					{
@@ -256,9 +255,6 @@ public class server
 
 					case DISCONNECT:
 						disconnect();
-						break;
-
-					case STILL_ALIVE:
 						break;
 
 					case USER_LIST:
